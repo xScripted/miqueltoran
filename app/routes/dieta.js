@@ -18,10 +18,3 @@ router.delete('/diet', (req, res) => {
 })
 
 module.exports = router;
-
-// Schema
-/*
-    Ingrediente (Micros, Macros)
-    Plato (Ingredientes, Cantidad)
-    Dia (Plato)
-*/
