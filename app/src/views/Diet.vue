@@ -1,34 +1,36 @@
 <template>
-  <div class="container">
-
-    <b-button variant="success" @click="show = !show">Crear Dieta</b-button>
-
-    <b-form @reset="onReset" v-if="show">
-      <b-form-group
-        id="fieldset-1"
-        description="Let us know your name."
-        label="Enter your name"
-        label-for="input-1"
-      >
-        <b-form-input id="input-1" v-model="name"></b-form-input>
-      </b-form-group>
-
-      <b-button @click="onSubmit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
-
-    <button type="button" class="btn btn-info" @click="getDiets"> Ver dietas </button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+          <d-menu></d-menu>
+      </div>
+      <div class="col-sm-8">
+          <d-viewer></d-viewer>
+      </div>
+      <div class="col-sm-2">
+          <d-selector></d-selector>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import DMenu from '@/components/diet/DMenu.vue';
+import DViewer from '@/components/diet/DViewer.vue';
+import DSelector from '@/components/diet/DSelector.vue';
+
 export default {
   data() {
     return {
       show: false,
       name: ''
     }
+  },
+  components: {
+    DMenu,
+    DViewer,
+    DSelector
   },
   methods: {
     onSubmit() {
@@ -59,8 +61,15 @@ export default {
     onReset() {
       return true;
     }
+  },
+  beforeCreate() {
+    console.log('hey!');
   }
 
 
 }
 </script>
+
+<style lang="scss">
+
+</style>

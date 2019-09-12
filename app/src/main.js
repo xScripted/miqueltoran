@@ -5,9 +5,12 @@ import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueDraggable from 'vue-draggable'
+
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+Vue.use(VueDraggable);
 
 new Vue({
   router,
