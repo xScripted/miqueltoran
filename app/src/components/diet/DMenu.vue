@@ -1,7 +1,8 @@
 <template>
   <div class="d-menu">
-      menu
-  
+      <button> Mis dietas </button>
+      <button> Platos </button>
+      <button> Ingredientes </button>
   </div>
 </template>
 
