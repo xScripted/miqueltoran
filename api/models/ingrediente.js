@@ -3,11 +3,13 @@ const Schema = mongoose.Schema;
 
 const ingrediente = new Schema({
     nombre:  String,
+    cantidad: String,
+    valoracion: Number,
     macros: {
         proteinas: Number,
         carbohidratos: Number,
         grasas: Number,
-        agua: Number,
+        fibra: Number,
     },
     micros: {
         vitaminas: {
@@ -34,11 +36,11 @@ const ingrediente = new Schema({
             fluor: Number,
             calcio: Number,
             fosforo: Number,
-            magnesio: Number
+            magnesio: Number,
+            potasio: Number
         }
     },
-    valoracion: Number
 
 });
 
-module.exports = mongooose.model('Ingrediente', ingrediente);
+module.exports = mongoose.model('Ingrediente', ingrediente);

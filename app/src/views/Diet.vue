@@ -4,11 +4,8 @@
       <div class="col-sm-2">
           <d-menu></d-menu>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-10">
           <d-viewer></d-viewer>
-      </div>
-      <div class="col-sm-2">
-          <d-selector></d-selector>
       </div>
     </div>
   </div>
@@ -21,12 +18,6 @@ import DViewer from '@/components/diet/DViewer.vue';
 import DSelector from '@/components/diet/DSelector.vue';
 
 export default {
-  data() {
-    return {
-      show: false,
-      name: ''
-    }
-  },
   components: {
     DMenu,
     DViewer,
@@ -34,7 +25,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('this.name', this.name);
       axios.post('http://127.0.0.1:9000/diet', {
         name: this.name,
         days: 3,
@@ -49,7 +39,7 @@ export default {
       return true;
     },
     getDiets(){
-      axios.get('http://127.0.0.1:9000/diet', {})
+      axios.get('http://127.0.0.1:9000/diet')
       .then(function (response) {
         console.log(response);
       })
@@ -62,8 +52,8 @@ export default {
       return true;
     }
   },
-  beforeCreate() {
-    console.log('hey!');
+  created() {
+    this.$store.dispatch('loadIngredients');
   }
 
 

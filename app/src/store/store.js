@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import diet from './modules/diet'
+import diet from './modules/storeDiet'
 
 Vue.use(Vuex)
 

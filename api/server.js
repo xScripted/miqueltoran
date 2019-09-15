@@ -25,6 +25,7 @@ mongoose.Promise = global.Promise;
 //app.get('/', (req, res) => res.send('./public'));
 
 app.use(require('./routes/dieta'));
+app.use(require('./routes/ingrediente'));
 
 //Listen
 app.listen(app.get('port'), () => console.log('Server listening on port ' + app.get('port')));

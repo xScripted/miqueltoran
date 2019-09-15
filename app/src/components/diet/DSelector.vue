@@ -2,12 +2,12 @@
   <div class="d-selector">
   
       <div id="selector-list">
-          <h4> {{ currentType }} </h4>
+          <h4> {{ getCurrentType }} </h4>
           <b-form-input id="buscador" type="text" placeholder="Buscador"></b-form-input>
           <div class="element-list">
-            card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>
-                        card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>card<br>
-
+            <div class='ing-draggable' v-for="(ingredient, i) in getAllIngredients" :key="i"> 
+              {{ ingredient.nombre }}
+            </div>
           </div>
       </div>
   </div>
@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentType'])
+    ...mapGetters(['getCurrentType', 'getAllIngredients'])
   }
 }
 </script>
@@ -67,8 +67,7 @@ export default {
     width: 100%;
     height: calc(80vh - 105px);
     padding: 10px;
-    box-shadow: inset 0 0 50px 0px rgba(0, 128, 0, 0.3);
-    overflow: scroll;
+    overflow-y: scroll;
   }
 
 }
