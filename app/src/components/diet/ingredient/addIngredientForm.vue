@@ -1,6 +1,6 @@
 <template>
   <div class="add-ingredient-form">
-    <b-form name="new-ingredient" @reset="onReset" v-if="show" novalidate>
+    <b-form name="new-ingredient" v-if="show" novalidate>
       <h1 style="text-align: center; margin: 20px;"> Añadir nuevo ingrediente </h1>
       <div class="container-fluid">
         <div class="row">
@@ -61,7 +61,7 @@
       <b-spinner v-if="sending" class="loading" type="grow" ></b-spinner> 
       <v-icon v-if="success" name="check"/>
     </button>
-    <button type="reset" class="btn btn-danger"> Reset </button>
+    <button type="reset" @click="test" class="btn btn-danger"> Reset </button>
   </div>
 </template>
 
@@ -123,7 +123,14 @@ export default {
     onSubmit(){
       this.sending = true;
       var _ = this;
-      axios.post('http://127.0.0.1:9000/dieta/ingrediente', this.formData)
+      var formData = new FormData();
+
+      formData.append('file', this.formData);
+      axios.post('http://127.0.0.1:9000/dieta/ingrediente', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
       .then(function () {
         _.sending = false;
         _.success = true; 
@@ -136,8 +143,8 @@ export default {
     capitalize(title){
         return title.charAt(0).toUpperCase() + title.substring(1);
     },
-    onReset(){
-
+    test(){
+      console.log(this.formData);
     }
   }
 }

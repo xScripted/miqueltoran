@@ -37,8 +37,9 @@
                             ></b-form-textarea>
                         </div>
                         <div class="col-sm-6">
-                            <div class="drop-ingredients" @dragover="allowDrop">Ingredientes</div>
-                             <div class="test"  draggable="true" @dragstart="drag">HEEY</div>
+                            <div class="drop-ingredients" @dragover="dragOver" @drop="drop">
+                              <div v-for="(id, k) in formData.ingredientes" :key="k"> {{ findData(id).nombre }} </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +57,7 @@
 
 <script>
 import axios from 'axios';
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import DSelector from '../DSelector.vue';
 
 export default {
@@ -101,13 +102,22 @@ export default {
     onReset(){
 
 		},
-    allowDrop(ev) {
+    dragOver(ev) {
       console.log('todoOk');
       ev.preventDefault();
     },
-    drag() {
-      console.log('WOOW');
-    }
+    drop(ev) {
+      var data = ev.dataTransfer.getData('text');
+      this.formData.ingredientes.push(data);
+      console.log(this.getAllIngredients);
+    },
+    findData(id){
+      var x = this.getAllIngredients.find((x) => x._id == id);
+      return x;
+    } 
+  },
+  computed: {
+    ...mapGetters(['getAllIngredients'])
   },
   components:{
     DSelector

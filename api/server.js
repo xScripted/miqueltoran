@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 //Settings
 app.set('port', process.env.PORT || 9000);
@@ -10,6 +11,10 @@ app.set('port', process.env.PORT || 9000);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false} ));
 app.use(bodyParser.json());
+
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+}));
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

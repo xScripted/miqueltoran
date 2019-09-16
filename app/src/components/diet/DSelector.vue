@@ -5,7 +5,7 @@
           <h4> {{ getCurrentType }} </h4>
           <b-form-input id="buscador" type="text" placeholder="Buscador"></b-form-input>
           <div class="element-list">
-            <div class='ing-draggable' @dragstart="drag" draggable="true" v-for="(ingredient, i) in getAllIngredients" :key="i"> 
+            <div class='ing-draggable' @dragstart="drag" draggable="true" :ing-id="ingredient._id" v-for="(ingredient, i) in getAllIngredients" :key="i"> 
               {{ ingredient.nombre }}
             </div>
           </div>
@@ -24,8 +24,9 @@ export default {
     }
   },
   methods: {
-    drag(){
-
+    drag(ev){
+      var idIngredient = ev.target.getAttribute('ing-id');
+      ev.dataTransfer.setData("text", idIngredient);
     }
   },
   computed: {
