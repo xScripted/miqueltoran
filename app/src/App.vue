@@ -9,7 +9,7 @@
             <router-link to="/" class="text-white">Home</router-link> 
           </b-nav-item>
           <b-nav-item href="#" >  
-            <router-link to="/about" class="text-white">Dieta</router-link>
+            <router-link to="/dieta" class="text-white">Dieta</router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -24,5 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+  body * {
+    opacity: 1;
+  }
 </style>

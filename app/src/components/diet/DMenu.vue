@@ -1,6 +1,10 @@
 <template>
   <div class="d-menu">
-      <h5> Mis dietas <v-icon name="angle-down"/> </h5>
+      <h5 v-b-toggle.menu-diet-collapse> Mis dietas <v-icon name="angle-down"/> </h5>
+      <b-collapse id="menu-diet-collapse" class="menu-title mt-2">
+        <div @click="changeShow('showDiet')">Lista</div>
+        <div @click="changeShow('addDiet')">Crear</div>
+      </b-collapse>
       <h5 v-b-toggle.menu-plate-collapse> Platos <v-icon name="angle-down"/></h5>
       <b-collapse id="menu-plate-collapse" class="menu-title mt-2">
         <div @click="changeShow('showPlate')">Lista</div>

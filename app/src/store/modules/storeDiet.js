@@ -4,10 +4,12 @@ export default {
     currentType: 'Ingredientes',
     allIngredients: [],
     shows: {
+      addDiet: false,
+      showDiet: false,
+      addPlate: false,
+      showPlate: false,
       addIng: false,
       showIng: false,
-      addPlate: false,
-      showPlate: false
     }
   },
   getters: {

@@ -60,7 +60,7 @@ import { mapActions } from 'vuex'
 import DSelector from '../DSelector.vue';
 
 export default {
-  name: 'add-plate-form',
+  name: 'add-diet-form',
   data(){
     return {
       show: true,

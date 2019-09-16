@@ -1,5 +1,8 @@
 <template>
   <div class="d-viewer">
+    <diet-list v-show="getShows.showDiet"></diet-list>
+    <add-diet-form v-show="getShows.addDiet"></add-diet-form>
+    <plate-list v-show="getShows.showPlate"></plate-list>
     <add-plate-form v-show="getShows.addPlate"></add-plate-form>
     <ingredient-list v-show="getShows.showIng"></ingredient-list >
     <add-ingredient-form v-show="getShows.addIng"></add-ingredient-form>
@@ -8,6 +11,9 @@
 
 <script>
 
+import dietList from './diet/dietList.vue';
+import addDietForm from './diet/addDietForm.vue';
+import plateList from './plate/plateList.vue';
 import addPlateForm from './plate/addPlateForm.vue';
 import addIngredientForm from './ingredient/addIngredientForm.vue'
 import ingredientList from './ingredient/ingredientList.vue';
@@ -30,9 +36,12 @@ export default {
     ...mapGetters(['getShows'])
   },
   components: {
-    addIngredientForm,
-    ingredientList,
+    addDietForm,
+    dietList,
+    plateList,
     addPlateForm,
+    ingredientList,
+    addIngredientForm
   }
 }
 </script>

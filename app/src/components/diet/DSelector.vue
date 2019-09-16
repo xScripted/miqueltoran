@@ -5,7 +5,7 @@
           <h4> {{ getCurrentType }} </h4>
           <b-form-input id="buscador" type="text" placeholder="Buscador"></b-form-input>
           <div class="element-list">
-            <div class='ing-draggable' v-for="(ingredient, i) in getAllIngredients" :key="i"> 
+            <div class='ing-draggable' @dragstart="drag" draggable="true" v-for="(ingredient, i) in getAllIngredients" :key="i"> 
               {{ ingredient.nombre }}
             </div>
           </div>
@@ -23,6 +23,11 @@ export default {
       title: 'Hey'
     }
   },
+  methods: {
+    drag(){
+
+    }
+  },
   computed: {
     ...mapGetters(['getCurrentType', 'getAllIngredients'])
   }
@@ -37,7 +42,7 @@ export default {
   width: 90%;
   height: 80vh;
   border-radius: 5px;
-  box-shadow: 0 0 20px 0px rgba(0, 0, 0, .5);
+  border: 1px solid #ddd;
   margin: auto;
   margin-top: 5vh;
 
@@ -55,6 +60,15 @@ export default {
       box-shadow: inset 0 0 20px 0px rgb(219, 219, 219);
     }
 
+  }
+
+  .ing-draggable{
+    border: 1px solid;
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 #ddd;
   }
 
   h4{
