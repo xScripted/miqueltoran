@@ -28,6 +28,10 @@ export default {
       for (let x of Object.keys(state.shows)) {
         state.shows[x] = false;
       }
+
+      if(active == 'addDiet') state.currentType = 'Platos';
+      if(active == 'addPlate') state.currentType = 'Ingredientes';
+
       state.shows[active] = true;
     }
   },

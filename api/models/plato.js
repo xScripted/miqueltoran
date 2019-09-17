@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const plato = new Schema({
     nombre: String,
     ingredientes: Array,
-    cocinado: Boolean,
+    tipo: String,
     tiempo: Number
 })
 

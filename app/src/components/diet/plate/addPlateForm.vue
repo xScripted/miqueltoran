@@ -38,7 +38,14 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="drop-ingredients" @dragover="dragOver" @drop="drop">
-                              <div v-for="(id, k) in formData.ingredientes" :key="k"> {{ findData(id).nombre }} </div>
+                              <div class="dropped-item" v-for="(id, k) in formData.ingredientes" :key="k">
+                                <div> {{ findData(id).nombre }}  </div>
+                                <input :id="'tooltip-target-' + id" v-model="formData.ingredientes[id]" type="text" />
+                                <b-tooltip :target="'tooltip-target-' + id" triggers="hover">
+                                  1 = {{ findData(id).cantidad }}g
+                                </b-tooltip>
+                                <v-icon class="close" @click="removeIngredient(id)" name="times"></v-icon>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -73,7 +80,7 @@ export default {
           tipo: 'cocinado',
           file: null,
           receta: '',
-          ingredientes: []
+          ingredientes: {}
       },
       selectOptions: [
         {value: 'cocinado', text: 'Cocinado'},
@@ -107,14 +114,19 @@ export default {
       ev.preventDefault();
     },
     drop(ev) {
-      var data = ev.dataTransfer.getData('text');
-      this.formData.ingredientes.push(data);
+      var id = ev.dataTransfer.getData('text');
+      this.formData.ingredientes[id] = 0;
       console.log(this.getAllIngredients);
     },
     findData(id){
-      var x = this.getAllIngredients.find((x) => x._id == id);
+      var x = this.getAllIngredients.find(x => x._id == id);
       return x;
-    } 
+    },
+    removeIngredient(id){
+      delete this.formData.ingredientes[id];
+      console.log('Removed!!');
+    }
+     
   },
   computed: {
     ...mapGetters(['getAllIngredients'])
@@ -152,6 +164,33 @@ export default {
     border-radius: 5px;
     padding: 10px;
     color: gray;
+
+    .dropped-item{
+      height: 45px;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+      
+      .ing-title{
+        float: left;
+      }
+
+      input {
+        border: 0;
+        max-width: 80px;
+        padding: 5px;
+        float: left;
+
+        &:focus{
+          outline: none;
+        }
+      }
+
+      .close{
+        float: right;
+      }
+
+    }
 }
 
 </style>

@@ -30,6 +30,7 @@ mongoose.Promise = global.Promise;
 //app.get('/', (req, res) => res.send('./public'));
 
 app.use(require('./routes/dieta'));
+app.use(require('./routes/plato'));
 app.use(require('./routes/ingrediente'));
 
 //Listen

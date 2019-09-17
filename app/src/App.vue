@@ -11,6 +11,12 @@
           <b-nav-item href="#" >  
             <router-link to="/dieta" class="text-white">Dieta</router-link>
           </b-nav-item>
+          <b-nav-item href="#" >  
+            <router-link to="/musica" class="text-white">Música</router-link>
+          </b-nav-item>
+          <b-nav-item href="#" >  
+            <router-link to="/idiomas" class="text-white">Idiomas</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -25,6 +31,6 @@ export default {
 
 <style lang="scss">
   body * {
-    opacity: 1;
+    opacity: .9;
   }
 </style>
