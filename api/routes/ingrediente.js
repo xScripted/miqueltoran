@@ -11,7 +11,7 @@ router.get('/dieta/ingrediente', (req, res) => {
 
 router.post('/dieta/ingrediente', (req, res) => {
 
-    console.log(req.body);
+    console.log(req.files);
     if(false){
         let file = req.files.sampleFile;
         console.log(req.body.file);

@@ -66,6 +66,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.ingredient-list{
+  animation: 2s 0s 1 fade;
+}
+
 .main-title{
     text-align: center;
     margin: 10px 0px;

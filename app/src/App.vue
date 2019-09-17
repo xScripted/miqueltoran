@@ -31,6 +31,19 @@ export default {
 
 <style lang="scss">
   body * {
-    opacity: .9;
+    opacity: 1;
   }
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
 </style>

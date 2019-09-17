@@ -38,13 +38,15 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="drop-ingredients" @dragover="dragOver" @drop="drop">
-                              <div class="dropped-item" v-for="(id, k) in formData.ingredientes" :key="k">
-                                <div> {{ findData(id).nombre }}  </div>
-                                <input :id="'tooltip-target-' + id" v-model="formData.ingredientes[id]" type="text" />
-                                <b-tooltip :target="'tooltip-target-' + id" triggers="hover">
-                                  1 = {{ findData(id).cantidad }}g
+                              <div class="dropped-item" v-for="(ing, k) in formData.ingredientes" :key="k">
+                                <div> {{ findData(ing.id).nombre }}  </div>
+                                <input :id="'tooltip-target-' + ing.id" v-model="formData.ingredientes[k].cantidad" type="text" />
+                                <b-tooltip :target="'tooltip-target-' + ing.id" triggers="hover">
+                                  1 = {{ findData(ing.id).cantidad }}g
                                 </b-tooltip>
-                                <v-icon class="close" @click="removeIngredient(id)" name="times"></v-icon>
+                                <div @click="removeIngredient(ing.id)">
+                                  <v-icon class="close" name="times"></v-icon>
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -80,7 +82,7 @@ export default {
           tipo: 'cocinado',
           file: null,
           receta: '',
-          ingredientes: {}
+          ingredientes: []
       },
       selectOptions: [
         {value: 'cocinado', text: 'Cocinado'},
@@ -115,16 +117,17 @@ export default {
     },
     drop(ev) {
       var id = ev.dataTransfer.getData('text');
-      this.formData.ingredientes[id] = 0;
-      console.log(this.getAllIngredients);
+      this.formData.ingredientes.push({
+        id: id,
+        cantidad: 1
+      });
     },
     findData(id){
       var x = this.getAllIngredients.find(x => x._id == id);
       return x;
     },
     removeIngredient(id){
-      delete this.formData.ingredientes[id];
-      console.log('Removed!!');
+      this.formData.ingredientes = this.formData.ingredientes.filter(x => x.id != id);
     }
      
   },
@@ -143,6 +146,10 @@ export default {
   cursor: pointer;
 }
 
+.add-plate-form{
+  animation: .5s 0s 1 fade;
+}
+
 .main-title{
   text-align: center;
   line-height: 3;
@@ -159,27 +166,37 @@ export default {
 }
 .drop-ingredients{
     width: 100%;
-    height: 20vh;
+    height: 50vh;
+    max-height: 530px;
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 10px;
     color: gray;
+    overflow-y: scroll;
 
     .dropped-item{
+      animation: .4s ease-out 0s 1 fade;
+      transition: .3s;
       height: 45px;
-      padding: 5px;
+      padding: 5px 10px;
+      margin: 10px;
       border-radius: 5px;
-      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+      display: grid;
+      color: black;
+      grid-template-columns: 60% 30% 10%;
+      align-items: center;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 1), inset 0 0 0px 0 rgba(114, 114, 114, 0.3);
+      cursor: pointer;
       
-      .ing-title{
-        float: left;
+      &:hover{
+        background-color:  rgba(144, 144, 144, 0.2);
       }
 
       input {
         border: 0;
         max-width: 80px;
+        background: transparent;
         padding: 5px;
-        float: left;
 
         &:focus{
           outline: none;
@@ -187,10 +204,12 @@ export default {
       }
 
       .close{
-        float: right;
+        justify-self: center;
+        cursor: pointer;
       }
 
     }
 }
+
 
 </style>
