@@ -3,10 +3,15 @@
   
       <div id="selector-list">
           <h4> {{ getCurrentType }} </h4>
-          <b-form-input id="buscador" type="text" placeholder="Buscador"></b-form-input>
-          <div class="element-list">
-            <div class='ing-draggable' @dragstart="drag" draggable="true" :ing-id="ingredient._id" v-for="(ingredient, i) in getAllIngredients" :key="i"> 
-              {{ ingredient.nombre }}
+          <b-form-input id="buscador" type="text" v-model="buscador" placeholder="Buscador"></b-form-input>
+          <div class="element-list" v-if="getCurrentType == 'Ingredientes'" >
+            <div class='item-list ing-draggable' v-show="ingredient.visible" @dragstart="drag" draggable="true" :ing-id="ingredient._id" v-for="(ingredient, i) in getAllIngredients" :key="i"> 
+              <div>{{ ingredient.nombre }}</div>
+            </div>
+          </div>
+          <div class="element-list" v-if="getCurrentType == 'Platos'" >
+            <div class="item-list ing-draggable" v-show="plate.visible" @dragstart="drag" draggable="true" :ing-id="plate._id" v-for="(plate, i) in getAllPlates" :key="i"> 
+              <div>{{ plate.nombre }} </div>
             </div>
           </div>
       </div>
@@ -18,9 +23,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'd-selector',
-  data(){
+  data() {
     return {
-      title: 'Hey'
+      buscador: ''
     }
   },
   methods: {
@@ -30,7 +35,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getCurrentType', 'getAllIngredients'])
+    ...mapGetters(['getCurrentType', 'getAllIngredients', 'getAllPlates']) // llamar plates
+  },
+  watch: {
+    buscador() {
+
+      var items = this.getCurrentType == 'Platos' ?  this.getAllPlates :  this.getAllIngredients;
+      var pattern = new RegExp(this.buscador, 'i');
+
+      for(let item of items) {
+        if(pattern.test(item.nombre)) {
+          item.visible = true;
+        } else {
+          item.visible = false;
+        }
+      }
+    }
   }
 }
 </script>
@@ -45,7 +65,7 @@ export default {
   border-radius: 5px;
   border: 1px solid #ddd;
   margin: auto;
-  margin-top: 5vh;
+  margin-top: 3vh;
 
   #buscador{
     border-radius: 0;
@@ -64,12 +84,18 @@ export default {
   }
 
   .ing-draggable{
+    transition: .3s;
     border: 1px solid;
-    padding: 5px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
     width: 100%;
     border-radius: 5px;
     box-shadow: 0 0 5px 0 #ddd;
+    cursor: pointer;
+    &:hover {
+      background: rgb(219, 219, 219);
+      padding-left: 15px;
+    }
   }
 
   h4{

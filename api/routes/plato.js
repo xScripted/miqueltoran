@@ -3,22 +3,16 @@ const router = express.Router();
 const Plato = require('../models/plato');
 
 router.get('/dieta/plato', (req, res) => {
-    Plato.find((err, ingredientes) => {
+    Plato.find((err, platos) => {
         if (err) return res.status(500).send(err);
-        return res.status(200).send(ingredientes);
+        return res.status(200).send(platos);
     })
 })
 
 router.post('/dieta/plato', (req, res) => {
 
     console.log(req.body);
-    if(false){
-        let file = req.files.sampleFile;
-        console.log(req.body.file);
-        sampleFile.mv('/assets/dieta/images/ingredient/test.jpg', function(err) {
-            if (err) return res.status(500).send(err);
-        });
-    }
+
 
     var plato = new Plato(req.body);
 

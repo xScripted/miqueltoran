@@ -54,6 +54,7 @@ export default {
   },
   created() {
     this.$store.dispatch('loadIngredients');
+    this.$store.dispatch('loadPlates');
   }
 
 

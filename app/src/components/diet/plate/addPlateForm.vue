@@ -79,6 +79,7 @@ export default {
       formData: {
           nombre: '',
           tiempo: 0,
+          visible: true,
           tipo: 'cocinado',
           file: null,
           receta: '',
@@ -95,7 +96,8 @@ export default {
     onSubmit(){
       this.sending = true;
       var _ = this;
-      axios.post('http://127.0.0.1:9000/dieta/ingrediente', this.formData)
+      console.log(this.formData);
+      axios.post('http://127.0.0.1:9000/dieta/plato', this.formData)
       .then(function () {
         _.sending = false;
         _.success = true; 

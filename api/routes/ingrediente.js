@@ -11,15 +11,6 @@ router.get('/dieta/ingrediente', (req, res) => {
 
 router.post('/dieta/ingrediente', (req, res) => {
 
-    console.log(req.files);
-    if(false){
-        let file = req.files.sampleFile;
-        console.log(req.body.file);
-        sampleFile.mv('/assets/dieta/images/ingredient/test.jpg', function(err) {
-            if (err) return res.status(500).send(err);
-        });
-    }
-
     var ingrediente = new Ingrediente(req.body);
 
     ingrediente.save(function(err, ingrediente) {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const dieta = new Schema({
+const palabra = new Schema({
     nombre: String,
     descripcion: String,
     macros: {
@@ -14,4 +14,4 @@ const dieta = new Schema({
     contenido: Object
 })
 
-module.exports = mongoose.model('Dietas', dieta);
+module.exports = mongoose.model('Palabra', palabra);

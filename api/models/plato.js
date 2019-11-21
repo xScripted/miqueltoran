@@ -5,6 +5,7 @@ const plato = new Schema({
     nombre: String,
     ingredientes: Array,
     tipo: String,
+    visible: Boolean,
     tiempo: Number
 })
 

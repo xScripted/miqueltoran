@@ -35,7 +35,7 @@
         <div class="container-fluid table-elements">
           <div class="row">
             <div class="col-sm-12 main-title"> <b>Macros</b> </div>
-            <div class="col-sm-3 element" v-for="(v, i) in formData.macros" :key="i">
+            <div class="col-sm-2 element" v-for="(v, i) in formData.macros" :key="i">
               <b-form-group :label="capitalize(i)" description="En gramos">
                 <b-form-input id="input-1" v-model="formData.macros[i]" type="number"></b-form-input>
               </b-form-group>
@@ -78,11 +78,13 @@ export default {
       formData: {
         nombre: '',
         cantidad: '',
+        visible: true,
         valoracion: null,
         file: null,
         macros: {
-          proteinas: null,
+          calorias: null,
           carbohidratos: null,
+          proteinas: null,
           grasas: null,
           fibra: null,
         },
@@ -123,14 +125,8 @@ export default {
     onSubmit(){
       this.sending = true;
       var _ = this;
-      var formData = new FormData();
 
-      formData.append('file', this.formData);
-      axios.post('http://127.0.0.1:9000/dieta/ingrediente', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      axios.post('http://127.0.0.1:9000/dieta/ingrediente', this.formData)
       .then(function () {
         _.sending = false;
         _.success = true; 

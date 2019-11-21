@@ -2,21 +2,29 @@ const express = require('express');
 const router = express.Router();
 const Diet = require('../models/dieta');
 
-router.get('/diet', (req, res) => {
-    console.log('Diets: ');
+router.get('/dieta', (req, res) => {
     Diet.find((err, diets) => {
         if (err) return res.status(500).send(err);
         return res.status(200).send(diets);
     })
 })
 
-router.post('/diet', (req, res) => {
+router.post('/dieta', (req, res) => {
     console.log(req.body);
 
     var diet = new Diet({
-        nombre: req.body.name,
-        descripcion: req.body.desc,
-        dias: req.body.days
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        macros: req.body.macros,
+        contenido: [
+            [{},{},{},{},{}],
+            [{},{},{},{},{}],
+            [{},{},{},{},{}],
+            [{},{},{},{},{}],
+            [{},{},{},{},{}],
+            [{},{},{},{},{}],  
+            [{},{},{},{},{}]
+        ]
 	});
 
     diet.save(function(err, diet) {
@@ -25,11 +33,20 @@ router.post('/diet', (req, res) => {
 	});
 })
 
-router.put('/diet', (req, res) => {
+router.put('/dieta', (req, res) => {
+
+    Diet.findByIdAndUpdate( 
+        req.body._id, // ID
+        req.body, // Datos a escribir, mongoose llenara lo que coincida
+        (err, diet) => {
+            if (err) return res.status(500).send(err);
+            return res.send(diet);
+        }
+    )
 
 })
 
-router.delete('/diet', (req, res) => {
+router.delete('/dieta', (req, res) => {
 
 })
 

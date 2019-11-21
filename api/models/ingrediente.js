@@ -5,11 +5,13 @@ const ingrediente = new Schema({
     nombre:  String,
     cantidad: String,
     valoracion: Number,
+    visible: Boolean,
     macros: {
         proteinas: Number,
         carbohidratos: Number,
         grasas: Number,
         fibra: Number,
+        calorias: Number,
     },
     micros: {
         vitaminas: {

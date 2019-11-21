@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="secondary">
+    <b-navbar toggleable="lg" type="dark" variant="primary">
       <b-navbar-brand href="#">MT</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -36,9 +36,6 @@ export default {
 
   @keyframes fade {
     0% {
-      opacity: 0;
-    }
-    50% {
       opacity: 0;
     }
     100% {

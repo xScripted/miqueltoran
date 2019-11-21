@@ -33,5 +33,7 @@ app.use(require('./routes/dieta'));
 app.use(require('./routes/plato'));
 app.use(require('./routes/ingrediente'));
 
+app.use(require('./routes/idiomas'));
+
 //Listen
 app.listen(app.get('port'), () => console.log('Server listening on port ' + app.get('port')));

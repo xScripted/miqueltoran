@@ -2,18 +2,19 @@
   <div class="d-menu">
       <h5 v-b-toggle.menu-diet-collapse> Mis dietas <v-icon name="angle-down"/> </h5>
       <b-collapse id="menu-diet-collapse" class="menu-title mt-2">
-        <div @click="changeShow('showDiet')">Lista</div>
-        <div @click="changeShow('addDiet')">Crear</div>
+        <div @click="changeShow('showDietActive')">Dieta Activa</div>
+        <div @click="changeShow('showDiets')">Todas las dietas</div>
+        <div @click="changeShow('addDiet')">Crear dieta</div>
       </b-collapse>
       <h5 v-b-toggle.menu-plate-collapse> Platos <v-icon name="angle-down"/></h5>
       <b-collapse id="menu-plate-collapse" class="menu-title mt-2">
-        <div @click="changeShow('showPlate')">Lista</div>
-        <div @click="changeShow('addPlate')">Crear</div>
+        <div @click="changeShow('showPlate')">Todos los platos</div>
+        <div @click="changeShow('addPlate')">Crear plato</div>
       </b-collapse>
       <h5 v-b-toggle.menu-ingredient-collapse> Ingredientes <v-icon name="angle-down"/></h5>
       <b-collapse id="menu-ingredient-collapse" class="menu-title mt-2">
-        <div @click="changeShow('showIng')">Lista</div>
-        <div @click="changeShow('addIng')">Crear</div>
+        <div @click="changeShow('showIng')">Todos los ingredientes</div>
+        <div @click="changeShow('addIng')">Crear ingrediente</div>
       </b-collapse>
   </div>
 </template>

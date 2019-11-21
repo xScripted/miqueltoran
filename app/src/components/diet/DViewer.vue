@@ -1,6 +1,7 @@
 <template>
   <div class="d-viewer">
-    <diet-list v-show="getShows.showDiet"></diet-list>
+    <diet-active v-show="getShows.showDietActive"></diet-active>
+    <diet-list v-show="getShows.showDiets"></diet-list>
     <add-diet-form v-show="getShows.addDiet"></add-diet-form>
     <plate-list v-show="getShows.showPlate"></plate-list>
     <add-plate-form v-show="getShows.addPlate"></add-plate-form>
@@ -11,6 +12,7 @@
 
 <script>
 
+import dietActive from './diet/dietActive.vue';
 import dietList from './diet/dietList.vue';
 import addDietForm from './diet/addDietForm.vue';
 import plateList from './plate/plateList.vue';
@@ -38,6 +40,7 @@ export default {
   components: {
     addDietForm,
     dietList,
+    dietActive,
     plateList,
     addPlateForm,
     ingredientList,

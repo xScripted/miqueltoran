@@ -1,55 +1,42 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-8 add-plate-form">
+        <div class="col-sm-12 add-diet-form">
             <b-form name="new-ingredient" @reset="onReset" v-if="show" novalidate>
-                <h1 style="text-align: center; margin: 20px;"> Crear un nuevo plato </h1>
+                <h1 style="text-align: center; margin: 20px;"> Crea una nueva dieta! </h1>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3 offset-sm-2">
                             <b-form-group label="Nombre">
                                 <b-form-input v-model="formData.nombre" type="text" required></b-form-input>
                             </b-form-group>
                         </div>
-                        <div class="col-sm-2">
-                            <b-form-group label="Tiempo" description="En minutos"> 
-                                <b-form-input v-model="formData.tiempo" type="number" required></b-form-input>
-                            </b-form-group>
+                        <div class="col-sm-1 element" v-for="(v, i) in formData.macros" :key="i">
+                          <b-form-group :label="capitalize(i)">
+                            <b-form-input id="input-1" v-model="formData.macros[i]" type="number"></b-form-input>
+                          </b-form-group>
                         </div>
-                        <b-form-group class="col-sm-2" label="Tipo"> 
-                            <b-form-select v-model="formData.tipo" value-field="value" text-field="text" :options="selectOptions"></b-form-select>
-                        </b-form-group>
-                        <b-form-group class="col-sm-4" label="Imagen">
-                            <b-form-file
-                                v-model="formData.file"
-                                :state="Boolean(formData.file)"
-                                placeholder="Elige una imagen"
-                            ></b-form-file>
-                            <small class="mt-3" style="color: #6c757d">Imagen: {{ formData.file ? formData.file.name : '' }}</small>
-                        </b-form-group>
-                        <div class="col-sm-6">
+                        <div class="col-sm-8 offset-sm-2">
                             <b-form-textarea
                                 id="textarea"
-                                v-model="formData.receta"
-                                placeholder="Receta"
+                                v-model="formData.descripcion"
+                                placeholder="Descripción"
                                 rows="3"
                                 max-rows="6"
                             ></b-form-textarea>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="drop-ingredients" @dragover="allowDrop">Ingredientes</div>
-                             <div class="test"  draggable="true" @dragstart="drag">HEEY</div>
-                        </div>
                     </div>
                 </div>
             </b-form>
-            <button @click="onSubmit" class="btn btn-info submit" > Guardar 
+            <div class="col-sm-8 offset-sm-2 mt-4">
+              <button @click="onSubmit" class="btn btn-info submit mr-2" > Guardar 
                 <b-spinner v-if="sending" class="loading" type="grow" ></b-spinner> 
                 <v-icon v-if="success" name="check"/>
-            </button>
-            <button type="reset" class="btn btn-danger"> Reset </button>
+              </button>
+              <button type="reset" class="btn btn-danger"> Reset </button>
+            </div>
+
         </div>
-        <d-selector class="col-sm-4"></d-selector>
     </div>
   </div>
 </template>
@@ -67,29 +54,28 @@ export default {
       sending: false,
       success: false,
       formData: {
-          nombre: '',
-          tiempo: 0,
-          tipo: 'cocinado',
-          file: null,
-          receta: '',
-          ingredientes: []
-      },
-      selectOptions: [
-        {value: 'cocinado', text: 'Cocinado'},
-        {value: 'crudo', text: 'Crudo'}
-      ]
+        nombre: '',
+        descripcion: '',
+        macros: {
+          proteinas: null,
+          carbohidratos: null,
+          grasas: null,
+          fibra: null,
+          calorias: null
+        }
+      }
     }
   },
   methods: {
-    ...mapActions(['loadIngredients']),
+    ...mapActions(['loadDiets']),
     onSubmit(){
       this.sending = true;
       var _ = this;
-      axios.post('http://127.0.0.1:9000/dieta/ingrediente', this.formData)
+      axios.post('http://127.0.0.1:9000/dieta', this.formData)
       .then(function () {
         _.sending = false;
         _.success = true; 
-        _.loadIngredients();
+        _.loadDiets();
       })
       .catch(function (error) {
         console.log(error);
@@ -100,14 +86,7 @@ export default {
     },
     onReset(){
 
-		},
-    allowDrop(ev) {
-      console.log('todoOk');
-      ev.preventDefault();
-    },
-    drag() {
-      console.log('WOOW');
-    }
+		}
   },
   components:{
     DSelector
@@ -117,31 +96,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.propiedades{
-  cursor: pointer;
-}
-
-.main-title{
-  text-align: center;
-  line-height: 3;
-  font-size: 20px;
-}
-
-.submit{
-  width: 150px;
-  margin: 10px;
-  .loading{
-    width: 20px;
-    height: 20px;
-  }
-}
-.drop-ingredients{
-    width: 100%;
-    height: 20vh;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    padding: 10px;
-    color: gray;
-}
 
 </style>
