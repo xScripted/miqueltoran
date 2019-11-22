@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Plato = require('../models/plato');
+const Plato = require('../../models/dietas/plato');
 
 router.get('/dieta/plato', (req, res) => {
     Plato.find((err, platos) => {

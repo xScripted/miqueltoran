@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Ingrediente = require('../models/ingrediente');
+const Ingrediente = require('../../models/dietas/ingrediente');
 
 router.get('/dieta/ingrediente', (req, res) => {
     Ingrediente.find((err, ingredientes) => {

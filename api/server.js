@@ -29,11 +29,11 @@ mongoose.Promise = global.Promise;
 //Rutas
 //app.get('/', (req, res) => res.send('./public'));
 
-app.use(require('./routes/dieta'));
-app.use(require('./routes/plato'));
-app.use(require('./routes/ingrediente'));
+app.use(require('./routes/dietas/dieta'));
+app.use(require('./routes/dietas/plato'));
+app.use(require('./routes/dietas/ingrediente'));
 
-app.use(require('./routes/idiomas'));
+app.use(require('./routes/idiomas/idiomas'));
 
 //Listen
 app.listen(app.get('port'), () => console.log('Server listening on port ' + app.get('port')));
