@@ -1,23 +1,47 @@
 <template>
     <div>
+        <h1 style="text-align: center; padding: 20px;"> {{ this.getLangActive }} </h1>
         <div class="word-list">
-            <div class="the-word">
-                <input type="text">
+            <div class="word-header">
+                <div class="form1">Forma 1</div>
+                <div class="form2">Forma 2</div>
+                <div class="form3">Forma 3</div>
+                <div class="fonetica">Fonética</div>
+                <div class="traduccion">Traduccion</div>
+                <div class="relacion">Relación</div>
+                <div class="tipo">Tipo</div>
+                <div class="ejemplo">Ejemplo</div>
+                <div class="subcategoria">Subcategoría</div>
+                <div class="idioma">Idioma</div>
+            </div>
+            <div class="the-word" :class="{extra: isExtra(word, i)}" v-for="(word, i) in getLangWords" :key="i">
+                <input class="form1" type="text" :value="word.form1">
+                <input class="form2" type="text" :value="word.form2">
+                <input class="form2" type="text" :value="word.form3">
+                <input class="fonetica" type="text" :value="word.fonetica">
+                <input class="traduccion" type="text" :value="word.traduccion">
+                <input class="relacion" type="text" :value="word.relacion">
+                <input class="tipo" type="text" :value="word.tipo">
+                <input class="ejemplo" type="text" :value="word.ejemplo">
+                <input class="subcategoria" type="text" :value="word.subcategoria">
+                <input class="idioma" type="text" :value="word.idioma">
             </div>
         </div>
         <div class="new-word">
-            <input type="text" :model="formInfo.kana" class="form-control" placeholder="Kana">
-            <input type="text" :model="formInfo.kanji" class="form-control" placeholder="Kanji">
-            <input type="text" :model="formInfo.fonetica" class="form-control" placeholder="Fonetica">
-            <input type="text" :model="formInfo.traduccion" class="form-control" placeholder="Traduccion">
-            <select :model="formInfo.tipo" class="custom-select" id="inputGroupSelect01">
+            <input type="text" v-model="formInfo.form1" class="form-control" placeholder="Form1">
+            <input type="text" v-model="formInfo.form2" class="form-control" placeholder="Form2">
+            <input type="text" v-model="formInfo.form3" class="form-control" placeholder="Form3">
+            <input type="text" v-model="formInfo.fonetica" class="form-control" placeholder="Fonetica">
+            <input type="number" v-model="formInfo.tier" class="form-control" placeholder="Tier">
+            <input type="text" v-model="formInfo.traduccion" class="form-control" placeholder="Traduccion">
+            <select v-model="formInfo.tipo" class="custom-select">
                 <option value="Verbo" selected> Verbo </option>
                 <option value="Adjetivo"> Adjetivo </option>
                 <option value="Nombre"> Nombre </option>
                 <option value="Adverbio"> Adverbio </option>
                 <option value="Articulo"> Articulo </option>
             </select>
-            <input :model="formInfo.subcategoria" type="text" class="form-control" placeholder="Subcategoría">
+            <input v-model="formInfo.subcategoria" type="text" class="form-control" placeholder="Subcategoría">
             <div class="btn btn-info" @click="sendWord()" >Enviar</div>
         </div>
     </div>
@@ -25,28 +49,59 @@
 
 <script>
 import axios from 'axios';
+import {mapGetters, mapActions} from 'vuex';
 export default {
     name: 'i-add-word',
     data() {
         return {
             formInfo: {
-                kana: '',
-                kanji: '',
+                form1: '',
+                form2: '',
+                form3: '',
                 fonetica: '',
                 traduccion: '',
-                tipo: '',
-                subcategoria: ''
+                relacion: '',
+                tipo: 'Verbo',
+                ejemplo: '',
+                subcategoria: '',
+                idioma: this.getLangActive
             } 
         }
     },
     methods: {
+        ...mapActions(['loadWords', 'loadLangs']),
         sendWord(){
-            axios.post('http://127.0.0.1:9000/idiomas', this.formInfo);
+            var _ = this;
+            this.formInfo.idioma = this.getLangActive;
+            axios.put('http://127.0.0.1:9000/idiomas', this.formInfo)
+            .then(function() {
+                _.loadWords();
+                _.formInfo = {
+                    form1: '',
+                    form2: '',
+                    form3: '',
+                    fonetica: '',
+                    traduccion: '',
+                    relacion: '',
+                    tipo: 'Verbo',
+                    tier: '1',
+                    ejemplo: '',
+                    subcategoria: '',
+                    idioma: _.getLangActive
+                } 
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         },
-        ajaxWords(){
-            axios.get('http://127.0.0.1:9000/idiomas', this.formInfo);
+        isExtra(word, i) {
+            return i > 0 && word.subcategoria !== this.getLangWords[i - 1].subcategoria; //Dividir subcategorias
         }
+    },
+    computed: {
+        ...mapGetters(['getLangActive', 'getLangWords'])
     }
+
 }
 </script>
 
@@ -61,7 +116,7 @@ export default {
         position: fixed;
         display: grid;
         align-items: center;
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(9, 1fr);
         padding: 0 30px;
         bottom: 0;
         background-color: #dedede;
@@ -72,6 +127,33 @@ export default {
             border-radius: 0;
 
         }
+    }
+    .word-header {
+        display: flex;
+        width: 100%;
+        div {
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid rgb(224, 224, 224);
+            background: none;
+            flex-grow: 3;
+        }
+    }
+    .the-word{
+        display: flex;
+        width: 100%;
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid rgb(224, 224, 224);
+            background: none;
+        }
+    }
+    .the-word:nth-child(odd){
+        background: #F3F3F3;
+    }
+    .extra{
+        margin-top: 20px;
     }
 
 </style>
