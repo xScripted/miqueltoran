@@ -3,28 +3,28 @@
         <h1 style="text-align: center; padding: 20px;"> {{ this.getLangActive }} </h1>
         <div class="word-list">
             <div class="word-header">
-                <div class="form1">Forma 1</div>
-                <div class="form2">Forma 2</div>
-                <div class="form3">Forma 3</div>
-                <div class="fonetica">Fonética</div>
-                <div class="traduccion">Traduccion</div>
-                <div class="relacion">Relación</div>
-                <div class="tipo">Tipo</div>
-                <div class="ejemplo">Ejemplo</div>
-                <div class="subcategoria">Subcategoría</div>
-                <div class="idioma">Idioma</div>
+                <div v-show="shows.form1" class="form1">Forma 1</div>
+                <div v-show="shows.form2" class="form2">Forma 2</div>
+                <div v-show="shows.form3" class="form3">Forma 3</div>
+                <div v-show="shows.fonetica" class="fonetica">Fonética</div>
+                <div v-show="shows.traduccion" class="traduccion">Traduccion</div>
+                <div v-show="shows.relacion" class="relacion">Relación</div>
+                <div v-show="shows.tipo" class="tipo">Tipo</div>
+                <div v-show="shows.ejemplo" class="ejemplo">Ejemplo</div>
+                <div v-show="shows.subcategoria" class="subcategoria">Subcategoría</div>
+                <div v-show="shows.idioma" class="idioma">Idioma</div>
             </div>
             <div class="the-word" :class="{extra: isExtra(word, i)}" v-for="(word, i) in getLangWords" :key="i">
-                <input class="form1" type="text" :value="word.form1">
-                <input class="form2" type="text" :value="word.form2">
-                <input class="form2" type="text" :value="word.form3">
-                <input class="fonetica" type="text" :value="word.fonetica">
-                <input class="traduccion" type="text" :value="word.traduccion">
-                <input class="relacion" type="text" :value="word.relacion">
-                <input class="tipo" type="text" :value="word.tipo">
-                <input class="ejemplo" type="text" :value="word.ejemplo">
-                <input class="subcategoria" type="text" :value="word.subcategoria">
-                <input class="idioma" type="text" :value="word.idioma">
+                <input v-show="shows.form1" class="form1" type="text" :value="word.form1">
+                <input v-show="shows.form2" class="form2" type="text" :value="word.form2">
+                <input v-show="shows.form3" class="form2" type="text" :value="word.form3">
+                <input v-show="shows.fonetica" class="fonetica" type="text" :value="word.fonetica">
+                <input v-show="shows.traduccion" class="traduccion" type="text" :value="word.traduccion">
+                <input v-show="shows.relacion" class="relacion" type="text" :value="word.relacion">
+                <input v-show="shows.tipo" class="tipo" type="text" :value="word.tipo">
+                <input v-show="shows.ejemplo" class="ejemplo" type="text" :value="word.ejemplo">
+                <input v-show="shows.subcategoria" class="subcategoria" type="text" :value="word.subcategoria">
+                <input v-show="shows.idioma" class="idioma" type="text" :value="word.idioma">
             </div>
         </div>
         <div class="new-word">

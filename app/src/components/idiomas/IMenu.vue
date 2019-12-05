@@ -11,7 +11,7 @@
           <input class="input-style" type="text" v-model="newLang" placeholder="Nombre del idioma">
           <b-form-checkbox
             id="checkbox-1"
-            v-model="status"
+            v-model="preset"
             name="checkbox-1"
             value="accepted"
             unchecked-value="not_accepted"
@@ -24,23 +24,45 @@
     </b-collapse>
  
     <div class="menu-item" v-b-toggle.collapse-2 >Ajustes tabla <v-icon name="angle-down"/></div>
-      <b-collapse id="collapse-2" class="mt-2">
-        <b-card>
-          <p class="card-text">
-            <input class="input-style" type="text" v-model="newLang" placeholder="Nombre del idioma">
-            <b-form-checkbox
-              id="checkbox-1"
-              v-model="status"
-              name="checkbox-1"
-              value="accepted"
-              unchecked-value="not_accepted"
-            >
-             Preset de palabras
-            </b-form-checkbox>
-          </p>
-          <b-button @click="sendNewLang" style="width: 100%" v-b-toggle.collapse-2-inner size="sm" variant="outline-primary">Crear</b-button>
-        </b-card>
-      </b-collapse>
+    <b-collapse id="collapse-2" class="mt-2">
+      <b-card>
+        <p class="card-text table-checkboxs">
+          <b-form-checkbox @click="updateShows('form1')" value="true"> Forma 1</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('form2')" value="true"> Forma 2</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('form3')" value="true"> Forma 3</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('fonetica')" value="true"> Fonetica</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('traduccion')" value="true"> Traduccion</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('relacion')" value="true"> Relacion</b-form-checkbox>
+          <b-form-checkbox @click="updateShows('tipo')" value="true"> Tipo </b-form-checkbox>
+          <b-form-checkbox @click="updateShows('tier')" value="true"> Tier </b-form-checkbox>
+          <b-form-checkbox @click="updateShows('ejemplo')" value="true"> Ejemplo </b-form-checkbox>
+          <b-form-checkbox @click="updateShows('subcategoria')" value="true"> Subcategoria </b-form-checkbox>
+        </p>
+      </b-card>
+    </b-collapse>
+
+    <div class="menu-item" v-b-toggle.collapse-3 >Filtros <v-icon name="angle-down"/></div>
+    <b-collapse id="collapse-3" class="mt-2">
+      <b-card>
+        <p class="card-text table-checkboxs">
+          <div class="filter">
+            <input type="text" placeholder="regExp"/> 
+            <select v-model="lang" class="custom-select mt-3">
+              <option value="form1"> Form1 </option>
+              <option value="form2"> Form2 </option>
+              <option value="form3"> Form3 </option>
+              <option value="fonetica"> Fonética </option>
+              <option value="traduccion"> Traducción </option>
+              <option value="relacion"> Relación </option>
+              <option value="tipo"> Tipo </option>
+              <option value="tier"> Tier </option>
+              <option value="ejemplo"> Ejemplo </option>
+              <option value="subcategoria"> Subcategoria </option>
+            </select>
+          </div>
+        </p>
+      </b-card>
+    </b-collapse>
   </div>
 </template>
 
@@ -53,14 +75,14 @@ export default {
     return {
       lang: '',
       newLang: '',
-      status: false 
+      preset: false,
     }
   },
   methods: {
-    ...mapMutations(['changeShow', 'changeLangActive']),
+    ...mapMutations(['changeLangActive', 'updateShows']),
     ...mapActions(['loadWords', 'loadLangs']),
     sendNewLang() {
-      axios.put('http://127.0.0.1:9000/idiomas/nuevo/', {name: this.newLang, status: this.status });
+      axios.put('http://127.0.0.1:9000/idiomas/nuevo/', {name: this.newLang, preset: this.preset });
     }
   },
   computed: {

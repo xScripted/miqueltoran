@@ -16,7 +16,6 @@ router.put('/idiomas', (req, res) => {
 })
 
 router.get('/idiomas/palabras/:lang?', (req, res) => {
-  console.log(req.params.lang);
   Palabra.find({idioma: req.params.lang}, null, {sort: 'subcategoria'}, (err, palabras) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(palabras);
